@@ -34,7 +34,7 @@ export const FiltersOutOfScopeCollapsible = ({
   <Collapse
     ghost
     bordered
-    expandIconPosition="end"
+    expandIconPosition="right"
     collapsible={filtersOutOfScope.length === 0 ? 'disabled' : undefined}
     items={[
       {

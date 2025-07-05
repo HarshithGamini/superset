@@ -286,9 +286,7 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
             label=__("List Roles"),
             category="Security",
             category_label=__("Security"),
-            menu_cond=lambda: bool(
-                appbuilder.app.config.get("SUPERSET_SECURITY_VIEW_MENU", True)
-            ),
+            icon="fa-lock",
         )
 
         appbuilder.add_view(
@@ -306,9 +304,6 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
             label=__("List Users"),
             category="Security",
             category_label=__("Security"),
-            menu_cond=lambda: bool(
-                appbuilder.app.config.get("SUPERSET_SECURITY_VIEW_MENU", True)
-            ),
         )
 
         appbuilder.add_view(
@@ -317,9 +312,6 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
             label=__("List Groups"),
             category="Security",
             category_label=__("Security"),
-            menu_cond=lambda: bool(
-                appbuilder.app.config.get("SUPERSET_SECURITY_VIEW_MENU", True)
-            ),
         )
 
         appbuilder.add_view(

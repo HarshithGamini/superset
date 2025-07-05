@@ -109,7 +109,7 @@ function AllEntities() {
   const editableTitleProps = {
     title: tag?.name || '',
     placeholder: 'testing',
-    onSave: () => {},
+    onSave: (newDatasetName: string) => {},
     canEdit: false,
     label: t('dataset name'),
   };

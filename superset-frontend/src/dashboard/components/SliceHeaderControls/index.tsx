@@ -88,7 +88,7 @@ const VerticalDotsTrigger = () => {
           cursor: pointer;
         }
       `}
-      iconSize="xl"
+      iconSize="xxl"
       iconColor={theme.colorTextLabel}
       className="dot"
     />
@@ -508,7 +508,7 @@ const SliceHeaderControls = (
         />
       )}
       <NoAnimationDropdown
-        popupRender={() => menu}
+        dropdownRender={() => menu}
         overlayStyle={dropdownOverlayStyle}
         trigger={['click']}
         placement="bottomRight"
@@ -522,7 +522,6 @@ const SliceHeaderControls = (
           aria-haspopup="true"
           css={theme => css`
             padding: ${theme.sizeUnit * 2}px;
-            padding-right: 0px;
           `}
         >
           <VerticalDotsTrigger />

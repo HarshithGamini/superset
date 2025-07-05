@@ -103,8 +103,9 @@ class CssEditor extends PureComponent<CssEditorProps, CssEditorState> {
   }
 
   changeCssTemplate(info: { key: Key }) {
+    const templateName = String(info.key);
     const selectedTemplate = this.state.templates?.find(
-      template => template.label === info.key,
+      template => template.label === templateName,
     );
     if (selectedTemplate) {
       this.changeCss(selectedTemplate.css);
@@ -123,7 +124,7 @@ class CssEditor extends PureComponent<CssEditorProps, CssEditorState> {
         />
       );
       return (
-        <Dropdown popupRender={() => menu} placement="bottomRight">
+        <Dropdown dropdownRender={() => menu} placement="bottomRight">
           <Button>{t('Load a CSS template')}</Button>
         </Dropdown>
       );

@@ -18,6 +18,7 @@
  */
 import { PureComponent, ReactNode } from 'react';
 import rison from 'rison';
+import querystring from 'query-string';
 import {
   isDefined,
   JsonResponse,
@@ -205,7 +206,7 @@ export class ChartCreation extends PureComponent<
   }
 
   componentDidMount() {
-    const params = new URLSearchParams(window.location.search).get('dataset');
+    const params = querystring.parse(window.location.search)?.dataset as string;
     if (params) {
       this.loadDatasources(params, 0, 1).then(r => {
         const datasource = r.data[0];
@@ -297,7 +298,7 @@ export class ChartCreation extends PureComponent<
           data-test="add-chart-new-dataset-instructions"
         >
           {`${VIEW_INSTRUCTIONS_TEXT} `}
-          <Icons.Full iconSize="m" iconColor={theme.colorPrimary} />
+          <Icons.Full iconSize="m" iconColor={theme.colors.primary.dark1} />
         </a>
         .
       </span>
@@ -309,7 +310,7 @@ export class ChartCreation extends PureComponent<
           target="_blank"
         >
           {`${VIEW_INSTRUCTIONS_TEXT} `}
-          <Icons.Full iconSize="m" iconColor={theme.colorPrimary} />
+          <Icons.Full iconSize="m" iconColor={theme.colors.primary.dark1} />
         </a>
         .
       </span>

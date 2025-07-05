@@ -94,7 +94,9 @@ export const DndColumnSelectPopoverTitle = ({
         {title || defaultLabel}
         &nbsp;
         <Icons.EditOutlined
-          iconColor={isHovered ? theme.colorPrimary : theme.colorText}
+          iconColor={
+            isHovered ? theme.colors.primary.base : theme.colors.grayscale.base
+          }
           iconSize="m"
         />
       </span>

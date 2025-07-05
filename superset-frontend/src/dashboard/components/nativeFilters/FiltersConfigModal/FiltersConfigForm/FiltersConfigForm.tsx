@@ -82,7 +82,6 @@ import DateFilterControl from 'src/explore/components/controls/DateFilterControl
 import AdhocFilterControl from 'src/explore/components/controls/FilterControl/AdhocFilterControl';
 import { waitForAsyncData } from 'src/middleware/asyncEvent';
 import { SingleValueType } from 'src/filters/components/Range/SingleValueType';
-import { RangeDisplayMode } from 'src/filters/components/Range/types';
 import {
   getFormData,
   mergeExtraFormData,
@@ -737,12 +736,6 @@ const FiltersConfigForm = (
       />
     </StyledRowFormItem>
   );
-  const isValidFilterValue = (value: any, isRangeFilter: boolean) => {
-    if (isRangeFilter) {
-      return Array.isArray(value) && (value[0] !== null || value[1] !== null);
-    }
-    return !!value;
-  };
   return (
     <Tabs
       activeKey={activeTabKey}
@@ -906,7 +899,7 @@ const FiltersConfigForm = (
                   onChange={key => {
                     handleActiveFilterPanelChange(key);
                   }}
-                  expandIconPosition="end"
+                  expandIconPosition="right"
                   key={`native-filter-config-${filterId}`}
                   items={[
                     ...(formFilter?.filterType !== 'filter_time'
@@ -1175,69 +1168,20 @@ const FiltersConfigForm = (
                                     </CollapsibleControl>
                                   </FormItem>
                                 ) : (
-                                  <>
-                                    <FormItem
-                                      name={[
-                                        'filters',
-                                        filterId,
-                                        'rangeFilter',
-                                      ]}
-                                    >
-                                      <CollapsibleControl
-                                        initialValue={hasEnableSingleValue}
-                                        title={t('Single Value')}
-                                        onChange={checked => {
-                                          onEnableSingleValueChanged(
-                                            checked
-                                              ? SingleValueType.Exact
-                                              : undefined,
-                                          );
-                                          formChanged();
-                                        }}
-                                      >
-                                        <StyledRowFormItem
-                                          expanded={expanded}
-                                          name={[
-                                            'filters',
-                                            filterId,
-                                            'controlValues',
-                                            'enableSingleValue',
-                                          ]}
-                                          initialValue={enableSingleValue}
-                                          label={
-                                            <StyledLabel>
-                                              {t('Single value type')}
-                                            </StyledLabel>
-                                          }
-                                        >
-                                          <Radio.GroupWrapper
-                                            onChange={value => {
-                                              onEnableSingleValueChanged(
-                                                value.target.value,
-                                              );
-                                              formChanged();
-                                            }}
-                                            options={[
-                                              {
-                                                label: t('Minimum'),
-                                                value: SingleValueType.Minimum,
-                                              },
-                                              {
-                                                label: t('Exact'),
-                                                value: SingleValueType.Exact,
-                                              },
-                                              {
-                                                label: t('Maximum'),
-                                                value: SingleValueType.Maximum,
-                                              },
-                                            ]}
-                                          />
-                                        </StyledRowFormItem>
-                                      </CollapsibleControl>
-                                    </FormItem>
-
-                                    <FormItem
-                                      name={['filters', filterId, 'rangeType']}
+                                  <FormItem
+                                    name={['filters', filterId, 'rangeFilter']}
+                                  >
+                                    <CollapsibleControl
+                                      initialValue={hasEnableSingleValue}
+                                      title={t('Single Value')}
+                                      onChange={checked => {
+                                        onEnableSingleValueChanged(
+                                          checked
+                                            ? SingleValueType.Exact
+                                            : undefined,
+                                        );
+                                        formChanged();
+                                      }}
                                     >
                                       <StyledRowFormItem
                                         expanded={expanded}
@@ -1245,66 +1189,40 @@ const FiltersConfigForm = (
                                           'filters',
                                           filterId,
                                           'controlValues',
-                                          'rangeDisplayMode',
+                                          'enableSingleValue',
                                         ]}
-                                        initialValue={
-                                          formFilter?.controlValues
-                                            ?.rangeDisplayMode ||
-                                          filterToEdit?.controlValues
-                                            ?.rangeDisplayMode ||
-                                          RangeDisplayMode.SliderAndInput
-                                        }
+                                        initialValue={enableSingleValue}
                                         label={
                                           <StyledLabel>
-                                            {t('Range Type')}
+                                            {t('Single value type')}
                                           </StyledLabel>
                                         }
                                       >
-                                        <Select
-                                          ariaLabel={t('Range Type')}
-                                          options={[
-                                            {
-                                              value: RangeDisplayMode.Slider,
-                                              label: t('Slider'),
-                                            },
-                                            {
-                                              value: RangeDisplayMode.Input,
-                                              label: t('Range Inputs'),
-                                            },
-                                            {
-                                              value:
-                                                RangeDisplayMode.SliderAndInput,
-                                              label: t(
-                                                'Slider and range input',
-                                              ),
-                                            },
-                                          ]}
+                                        <Radio.GroupWrapper
                                           onChange={value => {
-                                            const previous =
-                                              form.getFieldValue('filters')?.[
-                                                filterId
-                                              ].controlValues || {};
-                                            const rangeDisplayMode =
-                                              value ||
-                                              RangeDisplayMode.SliderAndInput;
-                                            setNativeFilterFieldValues(
-                                              form,
-                                              filterId,
-                                              {
-                                                controlValues: {
-                                                  ...previous,
-                                                  rangeDisplayMode,
-                                                },
-                                              },
+                                            onEnableSingleValueChanged(
+                                              value.target.value,
                                             );
-
-                                            forceUpdate();
                                             formChanged();
                                           }}
+                                          options={[
+                                            {
+                                              label: t('Minimum'),
+                                              value: SingleValueType.Minimum,
+                                            },
+                                            {
+                                              label: t('Exact'),
+                                              value: SingleValueType.Exact,
+                                            },
+                                            {
+                                              label: t('Maximum'),
+                                              value: SingleValueType.Maximum,
+                                            },
+                                          ]}
                                         />
                                       </StyledRowFormItem>
-                                    </FormItem>
-                                  </>
+                                    </CollapsibleControl>
+                                  </FormItem>
                                 )}
                               </>
                             ),
@@ -1351,25 +1269,6 @@ const FiltersConfigForm = (
                                   setNativeFilterFieldValues(form, filterId, {
                                     defaultDataMask: null,
                                   });
-                                } else {
-                                  // When the checkbox is checked, explicitly set an empty default data mask
-                                  // for range filters to trigger validation
-                                  if (
-                                    formFilter?.filterType === 'filter_range'
-                                  ) {
-                                    setNativeFilterFieldValues(form, filterId, {
-                                      defaultDataMask: {
-                                        extraFormData: {},
-                                        filterState: {
-                                          value: [null, null],
-                                        },
-                                      },
-                                    });
-                                  }
-                                  // Validate immediately when the checkbox is checked
-                                  form.validateFields([
-                                    ['filters', filterId, 'defaultDataMask'],
-                                  ]);
                                 }
                                 formChanged();
                               }}
@@ -1393,22 +1292,12 @@ const FiltersConfigForm = (
                                   rules={[
                                     {
                                       validator: () => {
-                                        // For range filters, check if at least one of the values in the array is non-null
-                                        const value =
+                                        if (
                                           formFilter?.defaultDataMask
-                                            ?.filterState?.value;
-                                        const isRangeFilter =
-                                          formFilter?.filterType ===
-                                          'filter_range';
-
-                                        // Check if value exists and is valid
-                                        const hasValidValue =
-                                          isValidFilterValue(
-                                            value,
-                                            isRangeFilter,
-                                          );
-
-                                        if (hasValidValue) {
+                                            ?.filterState?.value
+                                        ) {
+                                          // requires managing the error as the DefaultValue
+                                          // component does not use an Antdesign compatible input
                                           const formValidationFields =
                                             form.getFieldsError();
                                           setErroredFilters(
@@ -1426,7 +1315,6 @@ const FiltersConfigForm = (
                                           );
                                           return Promise.resolve();
                                         }
-
                                         setErroredFilters(
                                           prevErroredFilters => {
                                             if (
@@ -1508,7 +1396,9 @@ const FiltersConfigForm = (
                                         >
                                           <Icons.SyncOutlined
                                             iconSize="xl"
-                                            iconColor={theme.colorPrimary}
+                                            iconColor={
+                                              theme.colors.primary.base
+                                            }
                                             css={css`
                                               margin-left: ${theme.sizeUnit *
                                               2}px;

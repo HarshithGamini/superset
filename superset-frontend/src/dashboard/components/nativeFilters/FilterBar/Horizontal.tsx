@@ -69,8 +69,6 @@ const HorizontalFilterBar: FC<HorizontalBarProps> = ({
   filterValues,
   isInitialized,
   onSelectionChange,
-  clearAllTriggers,
-  onClearAllComplete,
 }) => {
   const dataMask = useSelector<RootState, DataMaskStateWithId>(
     state => state.dataMask,
@@ -109,8 +107,6 @@ const HorizontalFilterBar: FC<HorizontalBarProps> = ({
               <FilterControls
                 dataMaskSelected={dataMaskSelected}
                 onFilterSelectionChange={onSelectionChange}
-                clearAllTriggers={clearAllTriggers}
-                onClearAllComplete={onClearAllComplete}
               />
             )}
             {actions}

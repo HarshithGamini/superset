@@ -23,7 +23,7 @@ import { Tooltip } from '../Tooltip';
 import type { DropdownButtonProps } from './types';
 
 export const DropdownButton = ({
-  popupRender,
+  dropdownRender,
   tooltip,
   tooltipPlacement,
   children,
@@ -51,7 +51,7 @@ export const DropdownButton = ({
   `;
   const button = (
     <Dropdown.Button
-      popupRender={popupRender}
+      dropdownRender={dropdownRender}
       {...rest}
       css={[
         defaultBtnCss,

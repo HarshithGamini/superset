@@ -115,7 +115,7 @@ const Label = ({
         {label}{' '}
         <Tooltip title={alertTitle}>
           <Icons.WarningOutlined
-            iconColor={theme.colorWarning}
+            iconColor={theme.colors.warning.base}
             css={css`
               vertical-align: baseline;
             `}

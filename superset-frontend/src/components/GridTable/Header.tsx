@@ -156,13 +156,13 @@ export const Header: React.FC<Params> = ({
                 {currentSort === 'asc' && (
                   <Icons.SortAsc
                     iconSize="xxl"
-                    iconColor={theme.colorPrimary}
+                    iconColor={theme.colors.primary.base}
                   />
                 )}
                 {currentSort === 'desc' && (
                   <Icons.SortDesc
                     iconSize="xxl"
-                    iconColor={theme.colorPrimary}
+                    iconColor={theme.colors.primary.base}
                   />
                 )}
               </IconPlaceholder>

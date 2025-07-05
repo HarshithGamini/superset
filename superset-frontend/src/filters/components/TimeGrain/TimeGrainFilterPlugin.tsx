@@ -133,7 +133,7 @@ export default function PluginFilterTimegrain(
           onMouseLeave={unsetHoveredFilter}
           ref={inputRef}
           options={options}
-          onOpenChange={setFilterActive}
+          onDropdownVisibleChange={setFilterActive}
         />
       </FormItem>
     </FilterPluginStyle>

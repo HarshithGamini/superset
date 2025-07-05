@@ -232,7 +232,7 @@ export const DashboardPage: FC<PageProps> = ({ idOrSlug }: PageProps) => {
 
   const globalStyles = useMemo(
     () => [
-      filterCardPopoverStyle(),
+      filterCardPopoverStyle(theme),
       headerStyles(theme),
       chartContextMenuStyles(theme),
       focusStyle(theme),

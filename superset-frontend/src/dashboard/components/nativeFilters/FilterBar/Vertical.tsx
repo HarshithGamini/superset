@@ -125,8 +125,6 @@ const VerticalFilterBar: FC<VerticalBarProps> = ({
   onSelectionChange,
   toggleFiltersBar,
   width,
-  clearAllTriggers,
-  onClearAllComplete,
 }) => {
   const theme = useTheme();
   const [isScrolling, setIsScrolling] = useState(false);
@@ -182,8 +180,6 @@ const VerticalFilterBar: FC<VerticalBarProps> = ({
           <FilterControls
             dataMaskSelected={dataMaskSelected}
             onFilterSelectionChange={onSelectionChange}
-            clearAllTriggers={clearAllTriggers}
-            onClearAllComplete={onClearAllComplete}
           />
         </FilterControlsWrapper>
       ),
@@ -211,7 +207,7 @@ const VerticalFilterBar: FC<VerticalBarProps> = ({
               marginBottom: `${theme.sizeUnit * 3}px`,
             }}
             className="collapse-icon"
-            iconColor={theme.colorPrimary}
+            iconColor={theme.colors.primary.base}
             {...getFilterBarTestId('expand-button')}
           />
           <Icons.FilterOutlined

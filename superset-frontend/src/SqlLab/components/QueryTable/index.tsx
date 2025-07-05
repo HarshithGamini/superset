@@ -222,7 +222,7 @@ const QueryTable = ({
         config: {
           icon: (
             <Icons.LoadingOutlined
-              iconColor={theme.colorPrimary}
+              iconColor={theme.colors.primary.base}
               iconSize="m"
             />
           ),
@@ -272,7 +272,7 @@ const QueryTable = ({
             buttonStyle="link"
             onClick={() => openQuery(q.queryId)}
           >
-            <Icons.Full iconSize="m" iconColor={theme.colorPrimary} />
+            <Icons.Full iconSize="m" iconColor={theme.colors.primary.dark1} />
             {t('Edit')}
           </Button>
         );

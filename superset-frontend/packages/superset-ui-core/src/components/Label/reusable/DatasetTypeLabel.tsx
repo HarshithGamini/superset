@@ -37,7 +37,7 @@ export const DatasetTypeLabel: React.FC<DatasetTypeLabelProps> = ({
     datasetType === 'physical' ? (
       <Icons.InsertRowAboveOutlined
         iconSize={SIZE}
-        iconColor={theme.colorPrimary}
+        iconColor={theme.colors.primary.dark1}
       />
     ) : (
       <Icons.ConsoleSqlOutlined iconSize={SIZE} />

@@ -65,7 +65,7 @@ const TemplateContainer = styled.div(
 
     .required {
       margin-left: ${theme.sizeUnit / 2}px;
-      color: ${theme.colorErrorText};
+      color: ${theme.colors.error.base};
     }
 
     input[type='text'] {

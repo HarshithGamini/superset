@@ -48,7 +48,7 @@ const buildText = (
   if (shouldShowStopButton) {
     return (
       <>
-        <Icons.Square iconSize="xs" iconColor={theme.colorIcon} />
+        <Icons.Square iconSize="xs" iconColor={theme.colors.primary.light5} />
         {t('Stop')}
       </>
     );

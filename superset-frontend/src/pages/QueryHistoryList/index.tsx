@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { useMemo, useState, useCallback, ReactElement, useEffect } from 'react';
+import { useMemo, useState, useCallback, ReactElement } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
   css,
@@ -43,9 +43,9 @@ import {
   type ListViewProps,
   type ListViewFilters,
 } from 'src/components';
-import CodeSyntaxHighlighter, {
-  preloadLanguages,
-} from '@superset-ui/core/components/CodeSyntaxHighlighter';
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/light';
+import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql';
+import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 import { DATETIME_WITH_TIME_ZONE, TIME_WITH_MS } from 'src/constants';
 import { QueryObject, QueryObjectColumns } from 'src/views/CRUD/types';
 
@@ -64,23 +64,12 @@ const TopAlignedListView = styled(ListView)<ListViewProps<QueryObject>>`
   }
 `;
 
-const StyledCodeSyntaxHighlighter = styled(CodeSyntaxHighlighter)`
+SyntaxHighlighter.registerLanguage('sql', sql);
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   height: ${({ theme }) => theme.sizeUnit * 26}px;
   overflow: hidden !important; /* needed to override inline styles */
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  /* Ensure the syntax highlighter content respects the container constraints */
-  & > div {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  pre {
-    height: 100% !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-  }
 `;
 
 interface QueryListProps {
@@ -122,11 +111,6 @@ function QueryList({ addDangerToast }: QueryListProps) {
 
   const theme = useTheme();
   const history = useHistory();
-
-  // Preload SQL language since this component will definitely display SQL
-  useEffect(() => {
-    preloadLanguages(['sql']);
-  }, []);
 
   const handleQueryPreview = useCallback(
     (id: number) => {
@@ -366,23 +350,10 @@ function QueryList({ addDangerToast }: QueryListProps) {
             role="button"
             data-test={`open-sql-preview-${id}`}
             onClick={() => setQueryCurrentlyPreviewing(original)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setQueryCurrentlyPreviewing(original);
-              }
-            }}
-            style={{ cursor: 'pointer' }}
           >
-            <StyledCodeSyntaxHighlighter
-              language="sql"
-              customStyle={{
-                cursor: 'pointer',
-                userSelect: 'none',
-              }}
-            >
+            <StyledSyntaxHighlighter language="sql" style={github}>
               {shortenSQL(original.sql, SQL_PREVIEW_MAX_LINES)}
-            </StyledCodeSyntaxHighlighter>
+            </StyledSyntaxHighlighter>
           </div>
         ),
         id: QueryObjectColumns.Sql,
@@ -404,7 +375,7 @@ function QueryList({ addDangerToast }: QueryListProps) {
         ),
       },
     ],
-    [theme], // Add theme to dependencies since it's used in the columns
+    [],
   );
 
   const filters: ListViewFilters = useMemo(

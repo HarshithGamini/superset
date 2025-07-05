@@ -480,7 +480,7 @@ export default function DrillByModal({
         },
       }}
       draggable
-      destroyOnHidden
+      destroyOnClose
       maskClosable={false}
     >
       <Flex

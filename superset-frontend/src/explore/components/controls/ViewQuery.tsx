@@ -26,13 +26,15 @@ import {
 } from 'react';
 import rison from 'rison';
 import { styled, SupersetClient, t } from '@superset-ui/core';
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/light';
+import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 import { Icons, Switch, Button, Skeleton } from '@superset-ui/core/components';
 import { CopyToClipboard } from 'src/components';
 import { CopyButton } from 'src/explore/components/DataTableControl';
-import CodeSyntaxHighlighter, {
-  SupportedLanguage,
-  preloadLanguages,
-} from '@superset-ui/core/components/CodeSyntaxHighlighter';
+import markdownSyntax from 'react-syntax-highlighter/dist/cjs/languages/hljs/markdown';
+import htmlSyntax from 'react-syntax-highlighter/dist/cjs/languages/hljs/htmlbars';
+import sqlSyntax from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql';
+import jsonSyntax from 'react-syntax-highlighter/dist/cjs/languages/hljs/json';
 import { useHistory } from 'react-router-dom';
 
 const CopyButtonViewQuery = styled(CopyButton)`
@@ -43,10 +45,15 @@ const CopyButtonViewQuery = styled(CopyButton)`
   `}
 `;
 
+SyntaxHighlighter.registerLanguage('markdown', markdownSyntax);
+SyntaxHighlighter.registerLanguage('html', htmlSyntax);
+SyntaxHighlighter.registerLanguage('sql', sqlSyntax);
+SyntaxHighlighter.registerLanguage('json', jsonSyntax);
+
 export interface ViewQueryProps {
   sql: string;
   datasource: string;
-  language?: SupportedLanguage;
+  language?: string;
 }
 
 const StyledSyntaxContainer = styled.div`
@@ -69,7 +76,7 @@ const StyledHeaderActionContainer = styled.div`
   column-gap: ${({ theme }) => theme.sizeUnit * 2}px;
 `;
 
-const StyledThemedSyntaxHighlighter = styled(CodeSyntaxHighlighter)`
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   flex: 1;
 `;
 
@@ -89,11 +96,6 @@ const ViewQuery: FC<ViewQueryProps> = props => {
   const [showFormatSQL, setShowFormatSQL] = useState(true);
   const history = useHistory();
   const currentSQL = (showFormatSQL ? formattedSQL : sql) ?? sql;
-
-  // Preload the language when component mounts to ensure smooth experience
-  useEffect(() => {
-    preloadLanguages([language]);
-  }, [language]);
 
   const formatCurrentQuery = useCallback(() => {
     if (formattedSQL) {
@@ -177,12 +179,9 @@ const ViewQuery: FC<ViewQueryProps> = props => {
       </StyledHeaderMenuContainer>
       {!formattedSQL && <Skeleton active />}
       {formattedSQL && (
-        <StyledThemedSyntaxHighlighter
-          language={language}
-          customStyle={{ flex: 1 }}
-        >
+        <StyledSyntaxHighlighter language={language} style={github}>
           {currentSQL}
-        </StyledThemedSyntaxHighlighter>
+        </StyledSyntaxHighlighter>
       )}
     </StyledSyntaxContainer>
   );

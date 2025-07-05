@@ -23,6 +23,7 @@ import {
   styled,
   SupersetClient,
   t,
+  css,
 } from '@superset-ui/core';
 import { useCallback, useMemo, useState, MouseEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -199,16 +200,23 @@ function SavedQueryList({
 
   subMenuButtons.push({
     name: (
-      <>
+      <Link
+        to="/sqllab?new=true"
+        css={css`
+          display: flex;
+          &:hover {
+            color: currentColor;
+            text-decoration: none;
+          }
+        `}
+      >
         <Icons.PlusOutlined iconSize="m" />
         {t('Query')}
-      </>
+      </Link>
     ),
     buttonStyle: 'primary',
-    onClick: () => {
-      history.push('/sqllab?new=true');
-    },
   });
+
   if (canCreate) {
     subMenuButtons.push({
       name: (

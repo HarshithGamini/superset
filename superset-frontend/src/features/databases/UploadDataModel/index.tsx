@@ -597,7 +597,7 @@ const UploadDataModal: FunctionComponent<UploadDataModalProps> = ({
         initialValues={defaultUploadInfo}
       >
         <Collapse
-          expandIconPosition="end"
+          expandIconPosition="right"
           accordion
           defaultActiveKey="general"
           modalMode

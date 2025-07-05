@@ -91,7 +91,7 @@ const ExtraOptions = ({
 
   return (
     <Collapse
-      expandIconPosition="end"
+      expandIconPosition="right"
       accordion
       modalMode
       items={[

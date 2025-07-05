@@ -36,12 +36,7 @@ import {
   LOG_ACTIONS_TOGGLE_EDIT_DASHBOARD,
 } from 'src/logger/LogUtils';
 import { Icons } from '@superset-ui/core/components/Icons';
-import {
-  Button,
-  Tooltip,
-  DeleteModal,
-  UnsavedChangesModal,
-} from '@superset-ui/core/components';
+import { Button, Tooltip, DeleteModal } from '@superset-ui/core/components';
 import { findPermission } from 'src/utils/findPermission';
 import { safeStringify } from 'src/utils/safeStringify';
 import PublishedStatus from 'src/dashboard/components/PublishedStatus';
@@ -59,7 +54,6 @@ import setPeriodicRunner, {
 import ReportModal from 'src/features/reports/ReportModal';
 import { deleteActiveReport } from 'src/features/reports/ReportModal/actions';
 import { PageHeaderWithActions } from '@superset-ui/core/components/PageHeaderWithActions';
-import { useUnsavedChangesPrompt } from 'src/hooks/useUnsavedChangesPrompt';
 import DashboardEmbedModal from '../EmbeddedModal';
 import OverwriteConfirm from '../OverwriteConfirm';
 import {
@@ -103,7 +97,7 @@ const headerContainerStyle = theme => css`
 `;
 
 const editButtonStyle = theme => css`
-  color: ${theme.colorPrimary};
+  color: ${theme.colors.primary.dark2};
 `;
 
 const actionButtonsStyle = theme => css`
@@ -466,16 +460,6 @@ const Header = () => {
     slug,
   ]);
 
-  const {
-    showModal: showUnsavedChangesModal,
-    setShowModal: setShowUnsavedChangesModal,
-    handleConfirmNavigation,
-    handleSaveAndCloseModal,
-  } = useUnsavedChangesPrompt({
-    hasUnsavedChanges,
-    onSave: overwriteDashboard,
-  });
-
   const showPropertiesModal = useCallback(() => {
     setShowingPropertiesModal(true);
   }, []);
@@ -831,15 +815,6 @@ const Header = () => {
             border-right: none;
           }
         `}
-      />
-
-      <UnsavedChangesModal
-        title={t('Save changes to your dashboard?')}
-        body={t("If you don't save, changes will be lost.")}
-        showModal={showUnsavedChangesModal}
-        onHide={() => setShowUnsavedChangesModal(false)}
-        onConfirmNavigation={handleConfirmNavigation}
-        handleSave={handleSaveAndCloseModal}
       />
     </div>
   );

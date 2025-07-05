@@ -16,12 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { useEffect } from 'react';
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/light';
+import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql';
+import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 import { IconTooltip, ModalTrigger } from '@superset-ui/core/components';
 import { Icons } from '@superset-ui/core/components/Icons';
-import CodeSyntaxHighlighter, {
-  preloadLanguages,
-} from '@superset-ui/core/components/CodeSyntaxHighlighter';
+
+SyntaxHighlighter.registerLanguage('sql', sql);
 
 interface ShowSQLProps {
   sql: string;
@@ -36,11 +37,6 @@ export default function ShowSQL({
   sql: sqlString,
   triggerNode,
 }: ShowSQLProps) {
-  // Preload SQL language since this component will definitely use it when modal opens
-  useEffect(() => {
-    preloadLanguages(['sql']);
-  }, []);
-
   return (
     <ModalTrigger
       modalTitle={title}
@@ -53,9 +49,9 @@ export default function ShowSQL({
       }
       modalBody={
         <div>
-          <CodeSyntaxHighlighter language="sql">
+          <SyntaxHighlighter language="sql" style={github}>
             {sqlString}
-          </CodeSyntaxHighlighter>
+          </SyntaxHighlighter>
         </div>
       }
     />

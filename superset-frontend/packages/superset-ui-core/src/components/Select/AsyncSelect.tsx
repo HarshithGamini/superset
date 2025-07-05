@@ -129,7 +129,7 @@ const AsyncSelect = forwardRef(
       onError,
       onChange,
       onClear,
-      onOpenChange,
+      onDropdownVisibleChange,
       onDeselect,
       onSearch,
       onSelect,
@@ -441,12 +441,12 @@ const AsyncSelect = forwardRef(
         }
       }
 
-      if (onOpenChange) {
-        onOpenChange(isDropdownVisible);
+      if (onDropdownVisibleChange) {
+        onDropdownVisibleChange(isDropdownVisible);
       }
     };
 
-    const popupRender = (
+    const dropdownRender = (
       originNode: ReactElement & { ref?: RefObject<HTMLElement> },
     ) =>
       dropDownRenderHelper(
@@ -605,7 +605,7 @@ const AsyncSelect = forwardRef(
           }
           data-test={ariaLabel || name}
           autoClearSearchValue={autoClearSearchValue}
-          popupRender={popupRender}
+          dropdownRender={dropdownRender}
           filterOption={handleFilterOption}
           filterSort={sortComparatorWithSearch}
           getPopupContainer={
@@ -618,7 +618,7 @@ const AsyncSelect = forwardRef(
           notFoundContent={isLoading ? t('Loading...') : notFoundContent}
           onBlur={handleOnBlur}
           onDeselect={handleOnDeselect}
-          onOpenChange={handleOnDropdownVisibleChange}
+          onDropdownVisibleChange={handleOnDropdownVisibleChange}
           // @ts-ignore
           onPaste={onPaste}
           onPopupScroll={handlePagination}

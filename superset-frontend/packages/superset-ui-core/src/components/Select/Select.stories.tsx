@@ -17,7 +17,6 @@
  * under the License.
  */
 import { StoryObj } from '@storybook/react';
-import { noop } from 'lodash';
 import { SelectOptionsType, SelectProps } from './types';
 import { Select } from '.';
 
@@ -94,26 +93,23 @@ export const InteractiveSelect: StoryObj = {
     options,
     optionsCount,
     ...args
-  }: SelectProps & { header: string; optionsCount: number }) => {
-    noop(header);
-    return (
-      <div
-        style={{
-          width: DEFAULT_WIDTH,
-        }}
-      >
-        <Select
-          {...args}
-          options={
-            Array.isArray(options)
-              ? generateOptions(options, optionsCount)
-              : options
-          }
-          mode="multiple"
-        />
-      </div>
-    );
-  },
+  }: SelectProps & { header: string; optionsCount: number }) => (
+    <div
+      style={{
+        width: DEFAULT_WIDTH,
+      }}
+    >
+      <Select
+        {...args}
+        options={
+          Array.isArray(options)
+            ? generateOptions(options, optionsCount)
+            : options
+        }
+        mode="multiple"
+      />
+    </div>
+  ),
   args: {
     autoFocus: true,
     allowNewOptions: false,

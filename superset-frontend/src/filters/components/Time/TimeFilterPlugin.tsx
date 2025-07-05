@@ -48,9 +48,6 @@ const ControlContainer = styled.div<{
     ${({ validateStatus, theme }) =>
       validateStatus && `border-color: ${theme.colors[validateStatus]?.base}`}
   }
-  & > div {
-    width: 100%;
-  }
 `;
 
 export default function TimeFilterPlugin(props: PluginFilterTimeProps) {

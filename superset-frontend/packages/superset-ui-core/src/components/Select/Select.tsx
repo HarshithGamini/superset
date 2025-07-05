@@ -104,7 +104,7 @@ const Select = forwardRef(
       onBlur,
       onChange,
       onClear,
-      onOpenChange,
+      onDropdownVisibleChange,
       onDeselect,
       onSearch,
       onSelect,
@@ -398,8 +398,8 @@ const Select = forwardRef(
       if (!isDropdownVisible) {
         setSelectOptions(initialOptionsSorted);
       }
-      if (onOpenChange) {
-        onOpenChange(isDropdownVisible);
+      if (onDropdownVisibleChange) {
+        onDropdownVisibleChange(isDropdownVisible);
       }
     };
 
@@ -492,7 +492,7 @@ const Select = forwardRef(
       ],
     );
 
-    const popupRender = (
+    const dropdownRender = (
       originNode: ReactElement & { ref?: RefObject<HTMLElement> },
     ) =>
       dropDownRenderHelper(
@@ -694,7 +694,7 @@ const Select = forwardRef(
           }
           data-test={ariaLabel || name}
           autoClearSearchValue={autoClearSearchValue}
-          popupRender={popupRender}
+          dropdownRender={dropdownRender}
           filterOption={handleFilterOption}
           filterSort={sortComparatorWithSearch}
           getPopupContainer={
@@ -708,7 +708,7 @@ const Select = forwardRef(
           notFoundContent={isLoading ? t('Loading...') : notFoundContent}
           onBlur={handleOnBlur}
           onDeselect={handleOnDeselect}
-          onOpenChange={handleOnDropdownVisibleChange}
+          onDropdownVisibleChange={handleOnDropdownVisibleChange}
           // @ts-ignore
           onPaste={onPaste}
           onPopupScroll={undefined}

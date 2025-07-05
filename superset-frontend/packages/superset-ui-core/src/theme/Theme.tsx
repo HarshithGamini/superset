@@ -35,7 +35,6 @@ import {
   CacheProvider as EmotionCacheProvider,
 } from '@emotion/react';
 import createCache from '@emotion/cache';
-import { noop } from 'lodash';
 import { GlobalStyles } from './GlobalStyles';
 
 import {
@@ -286,7 +285,6 @@ export class Theme {
     antdConfig: AntdThemeConfig,
     emotionCache: any,
   ): void {
-    noop(theme, antdConfig, emotionCache);
     // Overridden at runtime by SupersetThemeProvider using setThemeState
   }
 

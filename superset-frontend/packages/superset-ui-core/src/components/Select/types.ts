@@ -62,7 +62,7 @@ export type AntdExposedProps = Pick<
   | 'onBlur'
   | 'onPopupScroll'
   | 'onSearch'
-  | 'onOpenChange'
+  | 'onDropdownVisibleChange'
   | 'optionRender'
   | 'placeholder'
   | 'showArrow'
@@ -95,7 +95,7 @@ export interface BaseSelectProps extends AntdExposedProps {
   /**
    * Renders the dropdown
    */
-  popupRender?: (
+  dropdownRender?: (
     menu: ReactElement<any, string | JSXElementConstructor<any>>,
   ) => ReactElement<any, string | JSXElementConstructor<any>>;
   /**

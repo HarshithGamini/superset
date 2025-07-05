@@ -43,12 +43,11 @@ export const BaseIconComponent: React.FC<
   iconSize,
   viewBox,
   customIcons,
-  fileName,
   ...rest
 }) => {
   const theme = useTheme();
   const whatRole = rest?.onClick ? 'button' : 'img';
-  const ariaLabel = genAriaLabel(fileName || '');
+  const ariaLabel = genAriaLabel(rest.fileName || '');
   const style = {
     color: iconColor,
     fontSize: iconSize

@@ -48,8 +48,14 @@ import {
 } from '../../constants';
 import { StackControlsValue } from '../../../constants';
 
-const { logAxis, minorSplitLine, truncateYAxis, yAxisBounds, orientation } =
-  DEFAULT_FORM_DATA;
+const {
+  logAxis,
+  minorSplitLine,
+  truncateYAxis,
+  yAxisBounds,
+  zoomable,
+  orientation,
+} = DEFAULT_FORM_DATA;
 
 function createAxisTitleControl(axis: 'x' | 'y'): ControlSetRow[] {
   const isXAxis = axis === 'x';
@@ -66,6 +72,7 @@ function createAxisTitleControl(axis: 'x' | 'y'): ControlSetRow[] {
           label: t('Axis Title'),
           renderTrigger: true,
           default: '',
+          description: t('Changing this control takes effect instantly'),
           visibility: ({ controls }: ControlPanelsContainerProps) =>
             isXAxis ? isVertical(controls) : isHorizontal(controls),
           disableStash: true,
@@ -84,6 +91,7 @@ function createAxisTitleControl(axis: 'x' | 'y'): ControlSetRow[] {
           renderTrigger: true,
           default: sections.TITLE_MARGIN_OPTIONS[0],
           choices: formatSelectOptions(sections.TITLE_MARGIN_OPTIONS),
+          description: t('Changing this control takes effect instantly'),
           visibility: ({ controls }: ControlPanelsContainerProps) =>
             isXAxis ? isVertical(controls) : isHorizontal(controls),
           disableStash: true,
@@ -99,6 +107,7 @@ function createAxisTitleControl(axis: 'x' | 'y'): ControlSetRow[] {
           label: t('Axis Title'),
           renderTrigger: true,
           default: '',
+          description: t('Changing this control takes effect instantly'),
           visibility: ({ controls }: ControlPanelsContainerProps) =>
             isXAxis ? isHorizontal(controls) : isVertical(controls),
           disableStash: true,
@@ -117,6 +126,7 @@ function createAxisTitleControl(axis: 'x' | 'y'): ControlSetRow[] {
           renderTrigger: true,
           default: sections.TITLE_MARGIN_OPTIONS[1],
           choices: formatSelectOptions(sections.TITLE_MARGIN_OPTIONS),
+          description: t('Changing this control takes effect instantly'),
           visibility: ({ controls }: ControlPanelsContainerProps) =>
             isXAxis ? isHorizontal(controls) : isVertical(controls),
           disableStash: true,
@@ -135,6 +145,7 @@ function createAxisTitleControl(axis: 'x' | 'y'): ControlSetRow[] {
           renderTrigger: true,
           default: sections.TITLE_POSITION_OPTIONS[0][0],
           choices: sections.TITLE_POSITION_OPTIONS,
+          description: t('Changing this control takes effect instantly'),
           visibility: ({ controls }: ControlPanelsContainerProps) =>
             isXAxis ? isHorizontal(controls) : isVertical(controls),
           disableStash: true,
@@ -357,7 +368,18 @@ const config: ControlPanelConfig = {
           },
         ],
         [minorTicks],
-        ['zoomable'],
+        [
+          {
+            name: 'zoomable',
+            config: {
+              type: 'CheckboxControl',
+              label: t('Data Zoom'),
+              default: zoomable,
+              renderTrigger: true,
+              description: t('Enable data zooming controls'),
+            },
+          },
+        ],
         ...legendSection,
         [<ControlSubSectionHeader>{t('X Axis')}</ControlSubSectionHeader>],
         ...createAxisControl('x'),

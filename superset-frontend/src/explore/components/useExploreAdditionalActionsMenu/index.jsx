@@ -93,7 +93,7 @@ export const MenuTrigger = styled(Button)`
     width: ${theme.sizeUnit * 8}px;
     height: ${theme.sizeUnit * 8}px;
     padding: 0;
-    border: 1px solid ${theme.colorPrimary};
+    border: 1px solid ${theme.colors.primary.dark2};
 
     &.ant-btn > span.anticon {
       line-height: 0;
@@ -101,7 +101,7 @@ export const MenuTrigger = styled(Button)`
     }
 
     &:hover:not(:focus) > span.anticon {
-      color: ${theme.colorPrimary};
+      color: ${theme.colors.primary.light1};
     }
   `}
 `;
@@ -387,7 +387,7 @@ export const useExploreAdditionalActionsMenu = (
                   />
                 }
                 maxWidth={`${theme.sizeUnit * 100}px`}
-                destroyOnHidden
+                destroyOnClose
                 responsive
               />
             </Menu.Item>

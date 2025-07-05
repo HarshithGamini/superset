@@ -35,6 +35,7 @@ interface DatabaseErrorExtra {
 export function DatabaseErrorMessage({
   error,
   source,
+  subtitle,
 }: ErrorMessageComponentProps<DatabaseErrorExtra | null>) {
   const { extra, level, message } = error;
 

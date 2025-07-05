@@ -312,7 +312,7 @@ export const ScopingModal = ({
       onHandledPrimaryAction={saveScoping}
       primaryButtonName={t('Save')}
       responsive
-      destroyOnHidden
+      destroyOnClose
       bodyStyle={{
         padding: 0,
         height: 700,

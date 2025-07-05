@@ -33,13 +33,13 @@ const InputContainer = styled.div`
 
 const StyledDivider = styled.span`
   margin: 0 ${({ theme }) => theme.sizeUnit * 2}px;
-  color: ${({ theme }) => theme.colorText};
+  color: ${({ theme }) => theme.colors.grayscale.base};
   font-weight: ${({ theme }) => theme.fontWeightNormal};
   font-size: ${({ theme }) => theme.fontSize}px;
 `;
 
 const ErrorMessage = styled.div`
-  color: ${({ theme }) => theme.colorErrorText};
+  color: ${({ theme }) => theme.colors.error.base};
   font-size: ${({ theme }) => theme.fontSizeSM}px;
   font-weight: ${({ theme }) => theme.fontWeightNormal};
   position: absolute;

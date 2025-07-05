@@ -116,7 +116,7 @@ export function UserInfo({ user }: { user: UserWithPermissionsAndRoles }) {
       name: (
         <>
           <Icons.LockOutlined
-            iconColor={theme.colorPrimary}
+            iconColor={theme.colors.primary.base}
             iconSize="m"
             css={css`
               margin: auto ${theme.sizeUnit * 2}px auto 0;
@@ -136,7 +136,7 @@ export function UserInfo({ user }: { user: UserWithPermissionsAndRoles }) {
       name: (
         <>
           <Icons.FormOutlined
-            iconColor={theme.colorIcon}
+            iconColor={theme.colors.primary.light5}
             iconSize="m"
             css={css`
               margin: auto ${theme.sizeUnit * 2}px auto 0;

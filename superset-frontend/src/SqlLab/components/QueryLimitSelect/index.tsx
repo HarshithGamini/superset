@@ -71,7 +71,7 @@ const QueryLimitSelect = ({
 
   return (
     <Dropdown
-      popupRender={() => renderQueryLimit(maxRow, setQueryLimit)}
+      dropdownRender={() => renderQueryLimit(maxRow, setQueryLimit)}
       trigger={['click']}
     >
       <Button size="small" showMarginRight={false} buttonStyle="link">

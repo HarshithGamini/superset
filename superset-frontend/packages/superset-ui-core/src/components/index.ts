@@ -163,6 +163,5 @@ export * from './Steps';
 export * from './Table';
 export * from './TableView';
 export * from './Tag';
-export * from './UnsavedChangesModal';
 export * from './constants';
 export * from './Result';

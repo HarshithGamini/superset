@@ -119,7 +119,7 @@ const StyledSubMenu = styled(SubMenu)`
     }
     &.ant-menu-submenu-active {
       .ant-menu-title-content {
-        color: ${theme.colorPrimary};
+        color: ${theme.colors.primary.base};
       }
     }
   `}

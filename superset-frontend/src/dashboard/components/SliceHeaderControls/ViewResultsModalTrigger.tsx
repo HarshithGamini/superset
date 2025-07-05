@@ -59,7 +59,7 @@ export const ViewResultsModalTrigger = ({
         },
       }}
       draggable
-      destroyOnHidden
+      destroyOnClose
       modalFooter={
         <>
           <Button

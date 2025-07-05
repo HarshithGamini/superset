@@ -304,7 +304,7 @@ const ChartContextMenu = (
   return ReactDOM.createPortal(
     <>
       <Dropdown
-        popupRender={() => (
+        dropdownRender={() => (
           <Menu
             className="chart-context-menu"
             data-test="chart-context-menu"

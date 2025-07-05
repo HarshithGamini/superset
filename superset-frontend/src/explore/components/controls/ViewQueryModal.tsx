@@ -91,7 +91,7 @@ const ViewQueryModal: FC<Props> = ({ latestQueryFormData }) => {
           <ViewQuery
             datasource={latestQueryFormData.datasource}
             sql={item.query}
-            language="sql"
+            language={item.language || undefined}
           />
         ) : null,
       )}

@@ -34,7 +34,7 @@ export const menuTriggerStyles = (theme: SupersetTheme) => css`
   width: ${theme.sizeUnit * 8}px;
   height: ${theme.sizeUnit * 8}px;
   padding: 0;
-  border: 1px solid ${theme.colorPrimary};
+  border: 1px solid ${theme.colors.primary.dark2};
 
   &.ant-btn > span.anticon {
     line-height: 0;
@@ -151,7 +151,7 @@ export const PageHeaderWithActions = ({
           {showMenuDropdown && (
             <Dropdown
               trigger={['click']}
-              popupRender={() => additionalActionsMenu}
+              dropdownRender={() => additionalActionsMenu}
               {...menuDropdownProps}
             >
               <Button
@@ -163,7 +163,7 @@ export const PageHeaderWithActions = ({
                 data-test="actions-trigger"
               >
                 <Icons.EllipsisOutlined
-                  iconColor={theme.colorPrimary}
+                  iconColor={theme.colors.primary.dark2}
                   iconSize="l"
                 />
               </Button>

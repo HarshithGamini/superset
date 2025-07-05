@@ -342,7 +342,6 @@ const cachedNativeFilterDataForChart: Record<
     rejectedColumns: Set<string>;
   }
 > = {};
-
 export const selectNativeIndicatorsForChart = (
   nativeFilters: Filters,
   dataMask: DataMaskStateWithId,
@@ -356,16 +355,17 @@ export const selectNativeIndicatorsForChart = (
 
   const cachedFilterData = cachedNativeFilterDataForChart[chartId];
   if (
-    cachedNativeIndicatorsForChart[chartId]?.length &&
-    areObjectsEqual(cachedFilterData.appliedColumns, appliedColumns) &&
-    areObjectsEqual(cachedFilterData.rejectedColumns, rejectedColumns) &&
-    areObjectsEqual(cachedFilterData.nativeFilters, nativeFilters) &&
-    areObjectsEqual(cachedFilterData.chartLayoutItems, chartLayoutItems) &&
-    areObjectsEqual(cachedFilterData.chartConfiguration, chartConfiguration) &&
-    areObjectsEqual(cachedFilterData.dataMask, dataMask)
+    cachedNativeIndicatorsForChart[chartId] &&
+    areObjectsEqual(cachedFilterData?.appliedColumns, appliedColumns) &&
+    areObjectsEqual(cachedFilterData?.rejectedColumns, rejectedColumns) &&
+    cachedFilterData?.nativeFilters === nativeFilters &&
+    cachedFilterData?.chartLayoutItems === chartLayoutItems &&
+    cachedFilterData?.chartConfiguration === chartConfiguration &&
+    cachedFilterData?.dataMask === dataMask
   ) {
     return cachedNativeIndicatorsForChart[chartId];
   }
+
   const nativeFilterIndicators =
     nativeFilters &&
     Object.values(nativeFilters)

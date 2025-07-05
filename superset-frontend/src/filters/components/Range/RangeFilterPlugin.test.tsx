@@ -17,10 +17,8 @@
  * under the License.
  */
 import { AppSection, GenericDataType } from '@superset-ui/core';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from 'spec/helpers/testing-library';
+import { fireEvent, render, screen } from 'spec/helpers/testing-library';
 import RangeFilterPlugin from './RangeFilterPlugin';
-import { RangeDisplayMode } from './types';
 import { SingleValueType } from './SingleValueType';
 import transformProps from './transformProps';
 
@@ -103,7 +101,7 @@ describe('RangeFilterPlugin', () => {
     jest.clearAllMocks();
   });
 
-  it('should render two numerical inputs and a slider by default', () => {
+  it('should render two numerical inputs', () => {
     getWrapper();
 
     const inputs = screen.getAllByRole('spinbutton');
@@ -111,32 +109,26 @@ describe('RangeFilterPlugin', () => {
 
     expect(inputs[0]).toHaveValue('10');
     expect(inputs[1]).toHaveValue('70');
-
-    // For a range slider, there are two slider handles
-    const sliders = screen.getAllByRole('slider');
-    expect(sliders.length).toBeGreaterThan(0);
   });
 
-  it('should set the data mask to error when the range is incorrect', async () => {
+  it('should set the data mask to error when the range is incorrect', () => {
     getWrapper({ filterState: { value: [null, null] } });
 
     const inputs = screen.getAllByRole('spinbutton');
     const fromInput = inputs[0];
     const toInput = inputs[1];
 
-    userEvent.clear(fromInput);
-    userEvent.type(fromInput, '20');
+    fireEvent.change(fromInput, { target: { value: 20 } });
 
-    userEvent.clear(toInput);
-    userEvent.type(toInput, '10');
+    fireEvent.change(toInput, { target: { value: 10 } });
 
-    userEvent.tab();
+    fireEvent.blur(toInput);
 
     expect(setDataMask).toHaveBeenCalledWith({
       extraFormData: {},
       filterState: {
         label: '',
-        validateMessage: 'Numbers must be within 10 and 100',
+        validateMessage: 'Please provide a valid range',
         validateStatus: 'error',
         value: null,
       },
@@ -194,10 +186,8 @@ describe('RangeFilterPlugin', () => {
         value: [20, null],
       },
     });
-
-    const inputs = screen.getAllByRole('spinbutton');
-    expect(inputs).toHaveLength(1);
-    expect(inputs[0]).toHaveValue('20');
+    const input = screen.getByRole('spinbutton');
+    expect(input).toHaveValue('20');
   });
 
   it('should call setDataMask with correct less than filter', () => {
@@ -224,10 +214,8 @@ describe('RangeFilterPlugin', () => {
         validateStatus: undefined,
       },
     });
-
-    const inputs = screen.getAllByRole('spinbutton');
-    expect(inputs).toHaveLength(1);
-    expect(inputs[0]).toHaveValue('60');
+    const input = screen.getByRole('spinbutton');
+    expect(input).toHaveValue('60');
   });
 
   it('should call setDataMask with correct exact filter', () => {
@@ -253,70 +241,6 @@ describe('RangeFilterPlugin', () => {
         validateStatus: undefined,
         validateMessage: '',
       },
-    });
-
-    const inputs = screen.getAllByRole('spinbutton');
-    expect(inputs).toHaveLength(1);
-    expect(inputs[0]).toHaveValue('10');
-  });
-
-  describe('Range Display Modes', () => {
-    it('should render only the slider in slider mode', () => {
-      getWrapper({
-        formData: {
-          rangeDisplayMode: RangeDisplayMode.Slider,
-        },
-      });
-
-      const sliders = screen.getAllByRole('slider');
-      expect(sliders.length).toBeGreaterThan(0);
-
-      expect(screen.queryAllByRole('spinbutton')).toHaveLength(0);
-    });
-
-    it('should render only inputs in input mode', () => {
-      getWrapper({
-        formData: {
-          rangeDisplayMode: RangeDisplayMode.Input,
-        },
-      });
-
-      const inputs = screen.getAllByRole('spinbutton');
-      expect(inputs).toHaveLength(2);
-
-      expect(screen.queryAllByRole('slider')).toHaveLength(0);
-    });
-
-    it('should render both slider and inputs in slider-and-input mode', () => {
-      getWrapper({
-        formData: {
-          rangeDisplayMode: RangeDisplayMode.SliderAndInput,
-        },
-      });
-
-      // Should show inputs
-      const inputs = screen.getAllByRole('spinbutton');
-      expect(inputs).toHaveLength(2);
-
-      // Should show slider
-      const sliders = screen.getAllByRole('slider');
-      expect(sliders.length).toBeGreaterThan(0);
-    });
-
-    it('should default to slider-and-input mode when not specified', () => {
-      getWrapper({
-        formData: {
-          // No rangeDisplayMode specified
-        },
-      });
-
-      // Should show inputs
-      const inputs = screen.getAllByRole('spinbutton');
-      expect(inputs).toHaveLength(2);
-
-      // Should show slider
-      const sliders = screen.getAllByRole('slider');
-      expect(sliders.length).toBeGreaterThan(0);
     });
   });
 });
